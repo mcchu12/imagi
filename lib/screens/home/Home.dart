@@ -9,7 +9,10 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 1.0,
+        leading: Icon(Icons.menu),
         title: Text('Imagi'),
+        centerTitle: true,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
@@ -19,10 +22,7 @@ class Home extends StatelessWidget {
           )
         ],
       ),
-      body: Container(
-          child: ImageGrid(
-        term: 'trending',
-      )),
+      body: Container(child: ImageGrid()),
     );
   }
 }
