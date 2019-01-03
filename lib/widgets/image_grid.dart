@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../../helpers.dart/index.dart';
-
-import '../../models/ImageModel.dart';
-import '../../services/UnsplashApi.dart';
+import '../models/ImageModel.dart';
+import '../services/unsplash_api.dart';
 
 class ImageGrid extends StatefulWidget {
   final String term;
@@ -35,18 +33,22 @@ class _ImageGridState extends State<ImageGrid> {
 
   Widget _buildImage(int index) {
     ImageModel image = images[index];
+    const roundedBorder = RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)));
     return Card(
         elevation: 3.0,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10.0),
-          child: FadeInImage(
-            image: NetworkImage(image.url),
-            fit: BoxFit.cover,
-            placeholder: AssetImage('assets/wallfy.png'),
+        shape: roundedBorder,
+        child: InkWell(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: FadeInImage(
+              image: NetworkImage(image.url),
+              fit: BoxFit.cover,
+              placeholder: AssetImage('assets/wallfy.png'),
+            ),
           ),
+          onTap: () {},
+          customBorder: roundedBorder,
         ));
   }
 

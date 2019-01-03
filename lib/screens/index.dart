@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import './home/Home.dart';
+import './home/index.dart';
 
 class App extends StatelessWidget {
   // This widget is the root of your application.

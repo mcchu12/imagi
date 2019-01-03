@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './ImageGrid.dart';
-import './SearchBar.dart';
+import '../../widgets/image_grid.dart';
+import './search_bar.dart';
 
 class Home extends StatelessWidget {
   // This widget is the root of your application.
@@ -9,7 +9,6 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 1.0,
         leading: Icon(Icons.menu),
         title: Text('Imagi'),
         centerTitle: true,

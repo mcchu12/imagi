@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './ImageGrid.dart';
+import '../../widgets/image_grid.dart';
 
 class SearchBar extends SearchDelegate<String> {
   List<String> recents = [];
@@ -31,6 +31,8 @@ class SearchBar extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
+    print(recents);
+    recents.insert(0, query);
     return Container(child: ImageGrid(term: query));
   }
 
