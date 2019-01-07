@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../models/ImageModel.dart';
+import '../models/image_model.dart';
 import '../services/unsplash_api.dart';
+
+import '../screens/image_detail.dart';
 
 class ImageGrid extends StatefulWidget {
   final String term;
@@ -39,17 +41,21 @@ class _ImageGridState extends State<ImageGrid> {
         elevation: 3.0,
         shape: roundedBorder,
         child: InkWell(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: FadeInImage(
-              image: NetworkImage(image.url),
-              fit: BoxFit.cover,
-              placeholder: AssetImage('assets/wallfy.png'),
-            ),
-          ),
-          onTap: () {},
-          customBorder: roundedBorder,
-        ));
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ImageDetail(image)));
+            },
+            child: Hero(
+              tag: image.id,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: FadeInImage(
+                  image: NetworkImage(image.url),
+                  fit: BoxFit.cover,
+                  placeholder: AssetImage('assets/wallfy.png'),
+                ),
+              ),
+            )));
   }
 
   Widget _buildImageGrid() {
@@ -59,7 +65,7 @@ class _ImageGridState extends State<ImageGrid> {
       itemBuilder: (BuildContext context, int index) =>
           Container(child: _buildImage(index)),
       staggeredTileBuilder: (int index) =>
-          StaggeredTile.count(2, index.isEven ? 2 : 3),
+          StaggeredTile.count(2, images[index].portrait ? 3 : 2),
       mainAxisSpacing: 4.0,
       crossAxisSpacing: 4.0,
       padding: const EdgeInsets.only(top: 10.0),

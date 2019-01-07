@@ -9,12 +9,18 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.menu),
+        leading: Icon(
+          Icons.menu,
+          color: Theme.of(context).iconTheme.color,
+        ),
         title: Text('Imagi'),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(
+              Icons.search,
+              color: Theme.of(context).iconTheme.color,
+            ),
             onPressed: () {
               showSearch(context: context, delegate: SearchBar());
             },

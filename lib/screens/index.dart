@@ -12,11 +12,17 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Imagi',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
-        primaryColor: Colors.white,
-        accentColor: Colors.grey,
-        fontFamily: 'Montserrat',
-      ),
+          primarySwatch: Colors.grey,
+          primaryColor: Colors.white,
+          accentColor: Colors.grey,
+          fontFamily: 'Montserrat',
+          textTheme: TextTheme(
+              title: TextStyle(color: Colors.grey),
+              body2: TextStyle(
+                fontSize: 12.0,
+                color: Colors.grey,
+              )),
+          iconTheme: IconThemeData(color: Colors.grey)),
       debugShowCheckedModeBanner: false,
       home: Home(),
     );

@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-import '../models/ImageModel.dart';
+import '../models/image_model.dart';
 
 class UnsplashApi {
   final String kClientId =

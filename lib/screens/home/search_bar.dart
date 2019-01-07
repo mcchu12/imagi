@@ -4,6 +4,7 @@ import '../../widgets/image_grid.dart';
 
 class SearchBar extends SearchDelegate<String> {
   List<String> recents = [];
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -31,8 +32,9 @@ class SearchBar extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    print(recents);
-    recents.insert(0, query);
+    if (!recents.contains(query) && query != '') {
+      recents.insert(0, query);
+    }
     return Container(child: ImageGrid(term: query));
   }
 
@@ -42,6 +44,7 @@ class SearchBar extends SearchDelegate<String> {
       itemCount: recents.length,
       itemBuilder: (context, index) => ListTile(
             title: Text(recents[index]),
+            leading: Icon(Icons.history),
           ),
     );
   }
