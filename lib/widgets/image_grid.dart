@@ -7,9 +7,10 @@ import '../services/unsplash_api.dart';
 import '../screens/image_detail.dart';
 
 class ImageGrid extends StatefulWidget {
-  final String term;
+  final String option;
+  final String query;
 
-  ImageGrid({this.term});
+  ImageGrid({this.option, this.query});
 
   @override
   _ImageGridState createState() => _ImageGridState();
@@ -26,7 +27,7 @@ class _ImageGridState extends State<ImageGrid> {
     super.initState();
     controller = new ScrollController()..addListener(_scrollListener);
 
-    api.fetchImages(widget.term).then((res) {
+    api.fetchImages(widget.option, widget.query).then((res) {
       setState(() {
         images = res;
       });
@@ -42,8 +43,20 @@ class _ImageGridState extends State<ImageGrid> {
         shape: roundedBorder,
         child: InkWell(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ImageDetail(image)));
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                      pageBuilder: (context, animation, secondAnimation) {
+                        return ImageDetail(images[index]);
+                      },
+                      transitionsBuilder:
+                          (context, animation, secondAnimation, child) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        );
+                      },
+                      transitionDuration: Duration(milliseconds: 500)));
             },
             child: Hero(
               tag: image.id,
@@ -77,7 +90,7 @@ class _ImageGridState extends State<ImageGrid> {
     final extendAfter = controller.position.extentAfter;
     if (!isFetching && extendAfter < 500) {
       isFetching = true;
-      api.fetchImages(widget.term).then((res) {
+      api.fetchImages(widget.option, widget.query).then((res) {
         setState(() {
           images = images..addAll(res);
         });

@@ -35,7 +35,7 @@ class SearchBar extends SearchDelegate<String> {
     if (!recents.contains(query) && query != '') {
       recents.insert(0, query);
     }
-    return Container(child: ImageGrid(term: query));
+    return Container(child: ImageGrid(option: 'SEARCH', query: query));
   }
 
   @override

@@ -13,25 +13,29 @@ class UnsplashApi {
 
   int pageIndex = 1;
 
-  Uri _getUrl(String term) {
+  Uri _getUrl(String option, String query) {
     final page = pageIndex.toString();
-    if (term == null) {
-      return Uri.https(url, '/photos', {'page': page});
+    switch (option) {
+      case 'SEARCH':
+        return Uri.https(url, '/search/photos', {'page': page, 'query': query});
+      case 'USER':
+        return Uri.https(url, '/users/$query/photos', {'page': page});
+      default:
+        return Uri.https(url, '/photos', {'page': page});
     }
-    return Uri.https(url, '/search/photos', {'page': page, 'query': term});
   }
 
-  Future<List<ImageModel>> fetchImages(String term) async {
+  Future<List<ImageModel>> fetchImages(String option, String query) async {
     final res = await http.get(
-      _getUrl(term),
+      _getUrl(option, query),
       headers: {HttpHeaders.authorizationHeader: 'Client-ID $kClientId'},
     );
 
     if (res.statusCode == 200) {
       pageIndex += 1;
-      final images = term == null
-          ? json.decode(res.body)
-          : json.decode(res.body)['results'];
+      final images = option == 'SEARCH'
+          ? json.decode(res.body)['results']
+          : json.decode(res.body);
       return images
           .map<ImageModel>((image) => ImageModel.fromJson(image))
           .toList();
